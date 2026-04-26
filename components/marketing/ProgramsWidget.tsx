@@ -294,6 +294,28 @@ export function ProgramsWidget() {
               ))}
             </div>
 
+            {/* Степень очистки */}
+            <div style={{ marginBottom: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
+                <span style={{ fontSize: 11, letterSpacing: 1.5, color: "rgba(255,255,255,0.45)", textTransform: "uppercase" }}>
+                  Степень очистки
+                </span>
+                <span style={{ fontSize: 22, fontWeight: 700, color: ACCENT, fontVariantNumeric: "tabular-nums", transition: "all 0.4s" }}>
+                  {(idx + 1) * 25}%
+                </span>
+              </div>
+              <div style={{ height: 6, background: "rgba(255,255,255,0.07)", borderRadius: 99, overflow: "hidden" }}>
+                <div style={{
+                  height: "100%",
+                  width: `${(idx + 1) * 25}%`,
+                  borderRadius: 99,
+                  background: `linear-gradient(to right, rgba(0,174,239,0.6), ${ACCENT})`,
+                  boxShadow: `0 0 10px rgba(0,174,239,0.5)`,
+                  transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)",
+                }} />
+              </div>
+            </div>
+
             {/* Services list */}
             <div style={{ background: "rgba(255,255,255,0.02)", border: "0.5px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "0.75rem 1rem", marginBottom: "1rem" }}>
               {tier.services.map(s => (
