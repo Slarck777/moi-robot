@@ -14,6 +14,7 @@
       "price": 1050,
       "duration": 15,
       "popular": true,
+      "cleanLevel": 4,
       "steps": [
         "Мойка днища и порогов",
         "Ополаскивание",
@@ -31,6 +32,7 @@
       "price": 850,
       "duration": 12,
       "popular": false,
+      "cleanLevel": 3,
       "steps": [
         "Мойка днища и порогов",
         "Ополаскивание",
@@ -47,6 +49,7 @@
       "price": 600,
       "duration": 8,
       "popular": false,
+      "cleanLevel": 2,
       "steps": [
         "Мойка днища и порогов",
         "Ополаскивание",
@@ -60,6 +63,7 @@
       "price": 400,
       "duration": 5,
       "popular": false,
+      "cleanLevel": 1,
       "steps": [
         "Эмульсия",
         "Смыв водой"

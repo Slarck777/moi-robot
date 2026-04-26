@@ -6,6 +6,7 @@ export type Program = {
   price: number;
   duration: number;
   popular: boolean;
+  cleanLevel: number;
   steps: string[];
 };
 

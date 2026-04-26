@@ -76,6 +76,39 @@
   --sidebar-ring: oklch(0.68 0.17 211);
 }
 
+/* Range slider для ProgramsWidget */
+input[type="range"].programs-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  outline: none;
+}
+input[type="range"].programs-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00AEEF;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0,174,239,0.7);
+  transition: transform 0.15s;
+}
+input[type="range"].programs-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"].programs-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00AEEF;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 12px rgba(0,174,239,0.7);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

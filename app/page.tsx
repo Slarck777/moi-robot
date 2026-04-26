@@ -1,6 +1,6 @@
 import { Hero } from "@/components/marketing/Hero";
 import { CarReveal } from "@/components/marketing/CarReveal";
-import { Programs } from "@/components/marketing/Programs";
+import { ProgramsWidget } from "@/components/marketing/ProgramsWidget";
 import { HowItWorks } from "@/components/marketing/HowItWorks";
 
 export default function HomePage() {
@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       <Hero />
       <CarReveal />
-      <Programs />
+      <ProgramsWidget />
       <HowItWorks />
     </>
   );
