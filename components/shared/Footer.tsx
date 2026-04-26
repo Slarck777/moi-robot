@@ -1,20 +1,13 @@
 import { MapPin, Phone, Clock } from "lucide-react";
 import { station } from "@/lib/station";
+import { Logo } from "@/components/shared/Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-border/50 bg-card">
       <div className="mx-auto max-w-2xl px-4 py-8">
-        <div className="mb-6 flex items-center gap-1.5">
-          <span className="text-base font-black tracking-tight">
-            МОЙ{" "}
-            <span className="relative inline-block">
-              <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] text-primary">
-                💧
-              </span>
-              РОБОТ
-            </span>
-          </span>
+        <div className="mb-6 pt-3">
+          <Logo size="sm" />
         </div>
 
         <div className="space-y-2 text-sm text-muted-foreground">

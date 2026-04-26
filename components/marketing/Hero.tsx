@@ -3,6 +3,7 @@
 import { MapPin, Clock, CreditCard, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { station } from "@/lib/station";
+import { Logo } from "@/components/shared/Logo";
 
 export function Hero() {
   function handleStart() {
@@ -18,17 +19,11 @@ export function Hero() {
         className="w-full max-w-sm text-center"
       >
         {/* Логотип */}
-        <div className="mb-8">
-          <h1 className="text-5xl font-black tracking-tight">
-            МОЙ{" "}
-            <span className="relative inline-block">
-              <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-2xl">
-                💧
-              </span>
-              РОБОТ
-            </span>
+        <div className="mb-8 pt-8">
+          <h1 className="flex justify-center">
+            <Logo size="md" />
           </h1>
-          <p className="mt-2 text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="mt-4 text-sm font-medium uppercase tracking-widest text-primary">
             {station.tagline}
           </p>
         </div>
