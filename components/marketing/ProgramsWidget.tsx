@@ -7,6 +7,64 @@ const ACCENT = "#00AEEF";
 const BG_DEEP = "#0a0e1a";
 const BG_CARD = "#0f1420";
 
+// Радар: [Кузов, Днище, Диски, ОСМОС, Воск, Сушка]
+const RADAR_LABELS = ["Кузов", "Днище", "Диски", "ОСМОС", "Воск", "Сушка"];
+const RADAR_VALUES = [
+  [0.30, 0.00, 0.00, 0.00, 0.00, 0.20], // Техническая
+  [0.65, 0.65, 0.00, 0.00, 0.00, 0.45], // Экспресс
+  [0.85, 0.85, 0.50, 0.85, 0.00, 0.75], // Оптимальная
+  [1.00, 1.00, 1.00, 1.00, 1.00, 1.00], // Стандарт
+];
+
+function RadarChart({ tierIdx }: { tierIdx: number }) {
+  const CX = 80, CY = 80, R = 58, N = 6;
+  const values = RADAR_VALUES[tierIdx];
+
+  function point(i: number, r: number) {
+    const angle = -Math.PI / 2 + (2 * Math.PI / N) * i;
+    return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
+  }
+
+  const gridLevels = [0.25, 0.5, 0.75, 1];
+  const dataPoints = values.map((v, i) => point(i, v * R));
+  const dataPath = dataPoints.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ") + " Z";
+
+  return (
+    <svg width={160} height={160} viewBox="0 0 160 160">
+      {/* Grid */}
+      {gridLevels.map(level => {
+        const pts = Array.from({ length: N }, (_, i) => point(i, level * R));
+        const path = pts.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ") + " Z";
+        return <path key={level} d={path} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="0.75" />;
+      })}
+      {/* Axis lines */}
+      {Array.from({ length: N }, (_, i) => {
+        const p = point(i, R);
+        return <line key={i} x1={CX} y1={CY} x2={p.x.toFixed(1)} y2={p.y.toFixed(1)} stroke="rgba(255,255,255,0.08)" strokeWidth="0.75" />;
+      })}
+      {/* Filled area */}
+      <path d={dataPath} fill={`${ACCENT}22`} stroke={ACCENT} strokeWidth="1.5"
+        style={{ transition: "d 0.5s cubic-bezier(0.4,0,0.2,1)" }} />
+      {/* Dots */}
+      {dataPoints.map((p, i) => (
+        <circle key={i} cx={p.x.toFixed(1)} cy={p.y.toFixed(1)} r="2.5" fill={ACCENT}
+          style={{ transition: "all 0.5s cubic-bezier(0.4,0,0.2,1)" }} />
+      ))}
+      {/* Labels */}
+      {Array.from({ length: N }, (_, i) => {
+        const p = point(i, R + 14);
+        return (
+          <text key={i} x={p.x.toFixed(1)} y={p.y.toFixed(1)}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize="8" fill="rgba(255,255,255,0.45)" fontFamily="inherit">
+            {RADAR_LABELS[i]}
+          </text>
+        );
+      })}
+    </svg>
+  );
+}
+
 const TIERS = [
   {
     name: "Техническая",
@@ -314,6 +372,11 @@ export function ProgramsWidget() {
                   transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)",
                 }} />
               </div>
+            </div>
+
+            {/* Radar chart */}
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+              <RadarChart tierIdx={idx} />
             </div>
 
             {/* Services list */}
