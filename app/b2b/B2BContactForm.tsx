@@ -1,7 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
-import { sendB2BLead, type FormState } from "./actions";
+import { useState } from "react";
 
 const ACCENT = "#00AEEF";
 const INPUT_STYLE: React.CSSProperties = {
@@ -25,12 +24,47 @@ const LABEL_STYLE: React.CSSProperties = {
 };
 
 export function B2BContactForm() {
-  const [state, action, pending] = useActionState<FormState, FormData>(sendB2BLead, null);
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
-  if (state?.ok) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const company  = data.get("company") as string;
+    const name     = data.get("name") as string;
+    const phone    = data.get("phone") as string;
+    const email    = data.get("email") as string;
+    const comment  = data.get("comment") as string;
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          subject: `[B2B] Заявка от ${company}`,
+          from_name: name,
+          email,
+          phone,
+          company,
+          message: comment || "—",
+        }),
+      });
+
+      const json = await res.json();
+      setStatus(json.success ? "ok" : "error");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "ok") {
     return (
       <div style={{ textAlign: "center", padding: "2.5rem 1rem" }}>
-        <div style={{ fontSize: 40, marginBottom: 12 }}>✓</div>
+        <div style={{ fontSize: 40, marginBottom: 12, color: ACCENT }}>✓</div>
         <p style={{ color: ACCENT, fontWeight: 700, fontSize: 18, marginBottom: 8 }}>Заявка отправлена!</p>
         <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 14 }}>Свяжемся с вами в ближайшее время.</p>
       </div>
@@ -38,7 +72,7 @@ export function B2BContactForm() {
   }
 
   return (
-    <form action={action} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         <div>
           <label style={LABEL_STYLE}>Компания *</label>
@@ -69,28 +103,28 @@ export function B2BContactForm() {
         />
       </div>
 
-      {state && !state.ok && (
-        <p style={{ color: "#ff6b6b", fontSize: 13 }}>{state.message}</p>
+      {status === "error" && (
+        <p style={{ color: "#ff6b6b", fontSize: 13 }}>Ошибка отправки. Позвоните нам напрямую.</p>
       )}
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={status === "loading"}
         style={{
           padding: "14px",
           fontSize: 14,
           fontWeight: 700,
           letterSpacing: 1,
           textTransform: "uppercase",
-          background: pending ? "rgba(0,174,239,0.5)" : ACCENT,
+          background: status === "loading" ? "rgba(0,174,239,0.5)" : ACCENT,
           color: "#0a0e1a",
           border: "none",
           borderRadius: 10,
-          cursor: pending ? "not-allowed" : "pointer",
+          cursor: status === "loading" ? "not-allowed" : "pointer",
           transition: "all 0.2s",
         }}
       >
-        {pending ? "Отправка..." : "Отправить заявку →"}
+        {status === "loading" ? "Отправка..." : "Отправить заявку →"}
       </button>
     </form>
   );
