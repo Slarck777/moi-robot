@@ -88,7 +88,13 @@ export function NewClientOffer() {
 
       setPromoCode(data.code);
 
-      // Notify owner via Web3Forms
+      // Записать в Google Таблицу
+      await fetch(process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!, {
+        method: "POST",
+        body: JSON.stringify({ phone, brand, plate, code: data.code }),
+      }).catch(() => {});
+
+      // Уведомить владельца на почту
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
