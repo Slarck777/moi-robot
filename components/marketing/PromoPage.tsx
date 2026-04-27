@@ -194,7 +194,7 @@ export function PromoPage() {
                 <input type="text" placeholder="А 123 АА 77" value={plate} maxLength={9}
                   onChange={e => setPlate(formatPlate(e.target.value))}
                   style={{ ...INPUT_STYLE, letterSpacing: 4, fontWeight: 700, fontSize: 16, borderColor: errors.plate ? "#ff6b6b" : "rgba(255,255,255,0.15)" }} />
-                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>Например: А123АА77 или E269AI2</p>
+                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>Формат: А123АА77</p>
                 {errors.plate && <p style={{ fontSize: 11, color: "#ff6b6b", marginTop: 2 }}>{errors.plate}</p>}
               </div>
 
