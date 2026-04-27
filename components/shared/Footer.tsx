@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { station } from "@/lib/station";
 import { Logo } from "@/components/shared/Logo";
@@ -27,9 +28,14 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-6 text-xs text-muted-foreground/50">
-          © {new Date().getFullYear()} МОЙ РОБОТ. Все права защищены.
-        </p>
+        <div className="mt-6 flex items-center justify-between">
+          <p className="text-xs text-muted-foreground/50">
+            © {new Date().getFullYear()} МОЙ РОБОТ. Все права защищены.
+          </p>
+          <Link href="/b2b" className="text-xs text-primary hover:underline">
+            Для бизнеса
+          </Link>
+        </div>
       </div>
     </footer>
   );
