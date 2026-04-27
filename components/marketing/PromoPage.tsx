@@ -233,10 +233,12 @@ export function PromoPage() {
               <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", padding: "0 1rem" }}>Здесь будет фото терминала у мойки</p>
             </div>
 
-            <div style={{ padding: "12px 16px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, marginBottom: 20 }}>
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
-                Промокод вводится <strong style={{ color: "#fff" }}>только на терминале</strong> у роботизированной мойки.<br />
-                <span style={{ color: "rgba(255,255,255,0.35)" }}>Приносим извинения за неудобства — уже работаем над этим.</span>
+            <div style={{ padding: "16px 20px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 14, marginBottom: 20 }}>
+              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+                Промокод вводится <span style={{ color: ACCENT }}>только на терминале</span> у роботизированной мойки.
+              </p>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>
+                Приносим извинения за неудобства — уже работаем над этим.
               </p>
             </div>
 

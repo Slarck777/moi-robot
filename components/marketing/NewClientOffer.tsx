@@ -410,16 +410,18 @@ export function NewClientOffer() {
 
           {/* Terminal reminder */}
           <div style={{
-            padding: "12px 16px",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: 12,
+            padding: "16px 20px",
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            borderRadius: 14,
             maxWidth: 320,
             margin: "0 auto",
           }}>
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
-              Промокод вводится <strong style={{ color: "#fff" }}>только на терминале</strong> у роботизированной мойки.<br />
-              <span style={{ color: "rgba(255,255,255,0.35)" }}>Приносим извинения за неудобства — уже работаем над этим.</span>
+            <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+              Промокод вводится <span style={{ color: ACCENT }}>только на терминале</span> у роботизированной мойки.
+            </p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>
+              Приносим извинения за неудобства — уже работаем над этим.
             </p>
           </div>
         </div>
