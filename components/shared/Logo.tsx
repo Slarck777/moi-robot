@@ -1,36 +1,12 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-
-function WaterDrop({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 20 26"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M10,2 C7,7 2,13 2,18 a8,8 0 0,0 16,0 C18,13 13,7 10,2 Z" />
-    </svg>
-  );
-}
 
 type LogoSize = "sm" | "md" | "lg";
 
-const sizes: Record<LogoSize, { text: string; drop: string; dropOffset: string }> = {
-  sm: {
-    text: "text-lg",
-    drop: "w-2.5 h-3.5",
-    dropOffset: "-top-3.5",
-  },
-  md: {
-    text: "text-5xl",
-    drop: "w-5 h-7",
-    dropOffset: "-top-7",
-  },
-  lg: {
-    text: "text-6xl",
-    drop: "w-6 h-8",
-    dropOffset: "-top-8",
-  },
+const sizes: Record<LogoSize, { width: number; height: number }> = {
+  sm: { width: 120, height: 33 },
+  md: { width: 280, height: 77 },
+  lg: { width: 360, height: 99 },
 };
 
 export function Logo({
@@ -43,25 +19,13 @@ export function Logo({
   const s = sizes[size];
 
   return (
-    <span
-      className={cn(
-        "font-extrabold tracking-tight leading-none select-none",
-        s.text,
-        className
-      )}
-    >
-      МО
-      <span className="relative inline-block">
-        <WaterDrop
-          className={cn(
-            "absolute left-1/2 -translate-x-1/2 text-primary",
-            s.drop,
-            s.dropOffset
-          )}
-        />
-        Й
-      </span>
-      {" "}РОБОТ
-    </span>
+    <Image
+      src="/logo-full.png"
+      alt="МОЙ РОБОТ"
+      width={s.width}
+      height={s.height}
+      className={cn("object-contain select-none", className)}
+      priority
+    />
   );
 }
