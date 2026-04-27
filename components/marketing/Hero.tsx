@@ -36,7 +36,7 @@ export function Hero() {
           </div>
           <div className="flex items-center justify-center gap-2">
             <Clock className="h-4 w-4 text-primary" />
-            <span>{station.workingHours} · {station.boxCount} бокса</span>
+            <span>{station.workingHours} · {station.boxCount} поста</span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <CreditCard className="h-4 w-4 text-primary" />
