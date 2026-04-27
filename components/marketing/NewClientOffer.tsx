@@ -175,7 +175,7 @@ export function NewClientOffer() {
               <div>
                 <p style={{ fontSize: 11, letterSpacing: 2, color: ACCENT, textTransform: "uppercase", marginBottom: 4 }}>Новым клиентам</p>
                 <p style={{ fontSize: 17, fontWeight: 800, color: "#fff", lineHeight: 1.2, marginBottom: 4 }}>
-                  Оптимальная и Стандарт
+                  Услуги Стандарт и Оптимальная
                 </p>
                 <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Только при первом визите · Один раз</p>
               </div>
