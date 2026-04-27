@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { Phone } from "lucide-react";
 import { station } from "@/lib/station";
-import { Logo } from "@/components/shared/Logo";
+import Image from "next/image";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center pt-2">
-          <Logo size="sm" />
+        <Link href="/" className="flex items-center">
+          <Image src="/logo-mp.png" alt="МОЙ РОБОТ" width={40} height={40} className="object-contain" priority />
         </Link>
 
         <a
