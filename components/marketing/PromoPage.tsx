@@ -214,9 +214,19 @@ export function PromoPage() {
               <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", padding: "0 1rem" }}>Здесь будет фото терминала у мойки</p>
             </div>
 
-            <div style={{ padding: "12px 16px", background: "rgba(255,200,0,0.08)", border: "1px solid rgba(255,200,0,0.2)", borderRadius: 12, marginBottom: 20 }}>
-              <p style={{ fontSize: 13, color: "rgba(255,220,80,0.9)", lineHeight: 1.5 }}>
-                ⚠️ Промокод вводится <strong>только на терминале</strong> у роботизированной мойки
+            <div style={{ padding: "16px", background: "rgba(255,200,0,0.1)", border: "2px solid rgba(255,200,0,0.35)", borderRadius: 14, marginBottom: 12 }}>
+              <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,220,80,1)", marginBottom: 6 }}>
+                📸 Сохраните промокод!
+              </p>
+              <p style={{ fontSize: 13, color: "rgba(255,220,80,0.85)", lineHeight: 1.6 }}>
+                Сделайте скриншот, сфотографируйте или запишите код — он показывается только один раз.
+              </p>
+            </div>
+
+            <div style={{ padding: "12px 16px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, marginBottom: 20 }}>
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+                Промокод вводится <strong style={{ color: "#fff" }}>только на терминале</strong> у роботизированной мойки.<br />
+                <span style={{ color: "rgba(255,255,255,0.35)" }}>Приносим извинения за неудобства — уже работаем над этим.</span>
               </p>
             </div>
 

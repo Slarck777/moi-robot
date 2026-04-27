@@ -390,17 +390,35 @@ export function NewClientOffer() {
             </p>
           </div>
 
-          {/* Reminder */}
+          {/* Save reminder */}
+          <div style={{
+            padding: "16px",
+            background: "rgba(255,200,0,0.1)",
+            border: "2px solid rgba(255,200,0,0.35)",
+            borderRadius: 14,
+            maxWidth: 320,
+            margin: "0 auto 12px",
+          }}>
+            <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,220,80,1)", marginBottom: 6 }}>
+              📸 Сохраните промокод!
+            </p>
+            <p style={{ fontSize: 13, color: "rgba(255,220,80,0.85)", lineHeight: 1.6 }}>
+              Сделайте скриншот, сфотографируйте или запишите код — он показывается только один раз.
+            </p>
+          </div>
+
+          {/* Terminal reminder */}
           <div style={{
             padding: "12px 16px",
-            background: "rgba(255,200,0,0.08)",
-            border: "1px solid rgba(255,200,0,0.2)",
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.1)",
             borderRadius: 12,
             maxWidth: 320,
             margin: "0 auto",
           }}>
-            <p style={{ fontSize: 13, color: "rgba(255,220,80,0.9)", lineHeight: 1.5 }}>
-              ⚠️ Промокод вводится <strong>только на терминале</strong> у роботизированной мойки
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6 }}>
+              Промокод вводится <strong style={{ color: "#fff" }}>только на терминале</strong> у роботизированной мойки.<br />
+              <span style={{ color: "rgba(255,255,255,0.35)" }}>Приносим извинения за неудобства — уже работаем над этим.</span>
             </p>
           </div>
         </div>
