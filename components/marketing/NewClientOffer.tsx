@@ -16,12 +16,6 @@ const CAR_BRANDS = [
 // Russian plate letters allowed by law
 const PLATE_LETTERS = "АВЕКМНОРСТУХ";
 
-function generatePromoCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "МР-";
-  for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  return code;
-}
 
 function formatPlate(raw: string): string {
   // Keep only allowed chars, max 9
@@ -81,11 +75,20 @@ export function NewClientOffer() {
     setErrors({});
     setSending(true);
 
-    const code = generatePromoCode();
-    setPromoCode(code);
-
-    // Notify owner via Web3Forms
     try {
+      // Get real activation code from server
+      const res = await fetch("/api/promo", { method: "POST" });
+      const data = await res.json();
+
+      if (!res.ok || !data.code) {
+        setErrors({ phone: "Коды временно закончились. Позвоните нам." });
+        setSending(false);
+        return;
+      }
+
+      setPromoCode(data.code);
+
+      // Notify owner via Web3Forms
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -93,13 +96,16 @@ export function NewClientOffer() {
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           subject: `[Промокод] Новый клиент — ${phone}`,
           from_name: "МОЙ РОБОТ Промо",
-          message: `Телефон: ${phone}\nМарка: ${brand}\nГос. номер: ${plate}\nПромокод: ${code}`,
+          message: `Телефон: ${phone}\nМарка: ${brand}\nГос. номер: ${plate}\nПромокод: ${data.code}`,
         }),
-      });
-    } catch { /* silent */ }
+      }).catch(() => {});
 
-    setSending(false);
-    setStep("success");
+      setStep("success");
+    } catch {
+      setErrors({ phone: "Ошибка соединения. Попробуйте ещё раз." });
+    } finally {
+      setSending(false);
+    }
   }
 
   const inputStyle: React.CSSProperties = {
