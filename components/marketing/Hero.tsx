@@ -1,6 +1,7 @@
 "use client";
 
-import { MapPin, Clock, CreditCard, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Clock, CreditCard, ArrowRight, Building2 } from "lucide-react";
 import { motion } from "motion/react";
 import { station } from "@/lib/station";
 import { Logo } from "@/components/shared/Logo";
@@ -65,6 +66,23 @@ export function Hero() {
         <p className="mt-3 text-xs text-muted-foreground">
           Откроется страница оплаты Kubon
         </p>
+
+        {/* B2B ссылка */}
+        <div className="mt-6 border-t border-border/40 pt-6">
+          <Link
+            href="/b2b"
+            className="group flex items-center justify-between gap-3 rounded-xl border border-primary/25 bg-primary/8 px-4 py-3 transition-all hover:border-primary/50 hover:bg-primary/15"
+          >
+            <div className="flex items-center gap-3 text-left">
+              <Building2 className="h-5 w-5 shrink-0 text-primary" />
+              <div>
+                <p className="text-sm font-semibold text-foreground">Корпоративным клиентам</p>
+                <p className="text-xs text-muted-foreground">Договор, личный кабинет, контроль расходов</p>
+              </div>
+            </div>
+            <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
       </motion.div>
     </section>
   );
