@@ -145,12 +145,10 @@ export function NewClientOffer() {
               background: "linear-gradient(135deg, #0a2a4a 0%, #0d1f35 60%, #091828 100%)",
               border: `1px solid rgba(0,174,239,0.35)`,
               borderRadius: 20,
-              padding: "1.5rem",
+              padding: "1.25rem",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 16,
-              flexWrap: "wrap",
+              flexDirection: "column",
+              gap: 14,
               position: "relative",
               overflow: "hidden",
             }}
@@ -158,7 +156,7 @@ export function NewClientOffer() {
             {/* glow */}
             <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,174,239,0.18) 0%, transparent 70%)`, pointerEvents: "none" }} />
 
-            <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               {/* badge */}
               <div style={{
                 flexShrink: 0,
@@ -184,17 +182,16 @@ export function NewClientOffer() {
             <button
               onClick={() => setStep("form")}
               style={{
-                flexShrink: 0,
-                padding: "12px 22px",
+                width: "100%",
+                padding: "12px",
                 background: ACCENT,
                 color: "#0a0e1a",
                 fontWeight: 700,
-                fontSize: 13,
+                fontSize: 14,
                 letterSpacing: 0.5,
                 border: "none",
                 borderRadius: 12,
                 cursor: "pointer",
-                whiteSpace: "nowrap",
               }}
             >
               Получить скидку →
