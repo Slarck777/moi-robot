@@ -13,21 +13,11 @@ const CAR_BRANDS = [
   "Tesla", "Toyota", "Volkswagen", "Volvo", "Voyah", "Zeekr", "ГАЗ", "УАЗ",
 ];
 
-// Russian plate letters allowed by law
-const PLATE_LETTERS = "АВЕКМНОРСТУХ";
-
-
 function formatPlate(raw: string): string {
-  // Keep only allowed chars, max 9
-  return raw
-    .toUpperCase()
-    .replace(/[^А-ЯA-Z0-9]/gi, "")
-    .slice(0, 9);
+  return raw.toUpperCase().slice(0, 12);
 }
 
 type Step = "banner" | "form" | "success";
-
-const DISCOUNT_SERVICES = ["Оптимальная", "Стандарт"];
 
 export function NewClientOffer() {
   const [step, setStep] = useState<Step>("banner");
@@ -63,8 +53,8 @@ export function NewClientOffer() {
     const errs: Record<string, string> = {};
     if (!phone.replace(/\D/g, "") || phone.replace(/\D/g, "").length < 10)
       errs.phone = "Введите корректный номер";
-    if (!brand) errs.brand = "Выберите марку автомобиля";
-    if (plate.length < 8) errs.plate = "Введите гос. номер полностью";
+    if (!brand.trim()) errs.brand = "Введите марку автомобиля";
+    if (plate.trim().length < 2) errs.plate = "Введите гос. номер";
     return errs;
   }
 
@@ -77,8 +67,18 @@ export function NewClientOffer() {
 
     try {
       // Get real activation code from server
-      const res = await fetch("/api/promo", { method: "POST" });
+      const res = await fetch("/api/promo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone }),
+      });
       const data = await res.json();
+
+      if (res.status === 409) {
+        setErrors({ phone: "Этот номер уже получал промокод." });
+        setSending(false);
+        return;
+      }
 
       if (!res.ok || !data.code) {
         setErrors({ phone: "Коды временно закончились. Позвоните нам." });
@@ -247,7 +247,7 @@ export function NewClientOffer() {
                   autoComplete="off"
                   onChange={e => {
                     setBrandQuery(e.target.value);
-                    setBrand("");
+                    setBrand(e.target.value);
                     setShowSuggestions(true);
                   }}
                   onFocus={() => setShowSuggestions(true)}
@@ -301,7 +301,7 @@ export function NewClientOffer() {
                     borderColor: errors.plate ? "#ff6b6b" : "rgba(255,255,255,0.15)",
                   }}
                 />
-                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>Формат: А123АА77</p>
+                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>Например: А123АА77 или E269AI2</p>
                 {errors.plate && <p style={{ fontSize: 11, color: "#ff6b6b", marginTop: 2 }}>{errors.plate}</p>}
               </div>
 

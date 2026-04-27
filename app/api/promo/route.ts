@@ -7,9 +7,33 @@ const redis = new Redis({
 });
 
 const LIST_KEY = "moi_robot:promo_codes";
+const USED_KEY = "moi_robot:used_phones";
 
-export async function POST() {
-  // First call: load all codes into Redis if list is empty
+// Номера которые всегда могут получать промокод (тестовые / владельцы)
+const WHITELIST = new Set(["9162692556", "9670064618", "9166929243"]);
+
+function normalizePhone(raw: string): string {
+  const digits = raw.replace(/\D/g, "");
+  // Привести к 10 цифрам: убрать ведущую 7 или 8
+  if ((digits.length === 11) && (digits[0] === "7" || digits[0] === "8")) {
+    return digits.slice(1);
+  }
+  return digits;
+}
+
+export async function POST(req: Request) {
+  const { phone } = await req.json().catch(() => ({ phone: "" }));
+  const normalized = normalizePhone(phone as string);
+
+  if (normalized.length >= 10) {
+    if (!WHITELIST.has(normalized)) {
+      const alreadyUsed = await redis.sismember(USED_KEY, normalized);
+      if (alreadyUsed) {
+        return Response.json({ error: "already_used" }, { status: 409 });
+      }
+    }
+  }
+
   const len = await redis.llen(LIST_KEY);
   if (len === 0) {
     await redis.rpush(LIST_KEY, ...PROMO_CODES);
@@ -19,6 +43,10 @@ export async function POST() {
 
   if (!code) {
     return Response.json({ error: "no_codes" }, { status: 503 });
+  }
+
+  if (normalized.length >= 10 && !WHITELIST.has(normalized)) {
+    await redis.sadd(USED_KEY, normalized);
   }
 
   return Response.json({ code });
