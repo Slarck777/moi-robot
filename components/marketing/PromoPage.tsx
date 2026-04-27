@@ -213,24 +213,24 @@ export function PromoPage() {
             <p style={{ fontSize: 20, fontWeight: 800, color: "#fff", marginBottom: 4 }}>Спасибо за регистрацию!</p>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>Ваш промокод на скидку 35%</p>
 
-            <div style={{ border: `2px dashed rgba(0,174,239,0.5)`, borderRadius: 16, padding: "1.25rem", background: "rgba(0,174,239,0.06)", marginBottom: 20 }}>
+            <div style={{ padding: "18px 20px", background: "rgba(255,200,0,0.15)", border: "2px solid rgba(255,210,0,0.6)", borderRadius: 16, marginBottom: 16, boxShadow: "0 0 20px rgba(255,200,0,0.2)" }}>
+              <p style={{ fontSize: 18, fontWeight: 900, color: "#FFD700", marginBottom: 8 }}>
+                📸 Сохраните промокод!
+              </p>
+              <p style={{ fontSize: 14, color: "rgba(255,230,80,0.95)", lineHeight: 1.6 }}>
+                Сделайте скриншот или запишите код — он показывается <strong style={{ color: "#fff" }}>только один раз</strong>.
+              </p>
+            </div>
+
+            <div style={{ border: `2px dashed rgba(0,174,239,0.5)`, borderRadius: 16, padding: "1.25rem", background: "rgba(0,174,239,0.06)", marginBottom: 16 }}>
               <p style={{ fontSize: 11, letterSpacing: 2, color: ACCENT, textTransform: "uppercase", marginBottom: 8 }}>Промокод</p>
-              <p style={{ fontSize: 32, fontWeight: 900, color: "#fff", letterSpacing: 4, marginBottom: 4 }}>{promoCode}</p>
+              <p style={{ fontSize: 32, fontWeight: 900, color: "#fff", letterSpacing: 6, marginBottom: 4 }}>{promoCode}</p>
               <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>Скидка 35% · Один раз</p>
             </div>
 
-            <div style={{ borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)`, background: "rgba(255,255,255,0.04)", aspectRatio: "16/9", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 20 }}>
+            <div style={{ borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)`, background: "rgba(255,255,255,0.04)", aspectRatio: "16/9", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, marginBottom: 16 }}>
               <div style={{ fontSize: 32 }}>📷</div>
               <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", padding: "0 1rem" }}>Здесь будет фото терминала у мойки</p>
-            </div>
-
-            <div style={{ padding: "16px", background: "rgba(255,200,0,0.1)", border: "2px solid rgba(255,200,0,0.35)", borderRadius: 14, marginBottom: 12 }}>
-              <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,220,80,1)", marginBottom: 6 }}>
-                📸 Сохраните промокод!
-              </p>
-              <p style={{ fontSize: 13, color: "rgba(255,220,80,0.85)", lineHeight: 1.6 }}>
-                Сделайте скриншот, сфотографируйте или запишите код — он показывается только один раз.
-              </p>
             </div>
 
             <div style={{ padding: "12px 16px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, marginBottom: 20 }}>

@@ -355,9 +355,27 @@ export function NewClientOffer() {
             Ваш промокод на скидку 35% (Оптимальная / Стандарт)
           </p>
 
+          {/* Save reminder — above the code so user sees it first */}
+          <div style={{
+            padding: "18px 20px",
+            background: "rgba(255,200,0,0.15)",
+            border: "2px solid rgba(255,210,0,0.6)",
+            borderRadius: 16,
+            maxWidth: 320,
+            margin: "0 auto 16px",
+            boxShadow: "0 0 20px rgba(255,200,0,0.2)",
+          }}>
+            <p style={{ fontSize: 18, fontWeight: 900, color: "#FFD700", marginBottom: 8 }}>
+              📸 Сохраните промокод!
+            </p>
+            <p style={{ fontSize: 14, color: "rgba(255,230,80,0.95)", lineHeight: 1.6 }}>
+              Сделайте скриншот или запишите код — он показывается <strong style={{ color: "#fff" }}>только один раз</strong>.
+            </p>
+          </div>
+
           {/* Promo code coupon */}
           <div style={{
-            margin: "0 auto 24px",
+            margin: "0 auto 20px",
             maxWidth: 320,
             border: `2px dashed rgba(0,174,239,0.5)`,
             borderRadius: 16,
@@ -365,13 +383,13 @@ export function NewClientOffer() {
             background: "rgba(0,174,239,0.06)",
           }}>
             <p style={{ fontSize: 11, letterSpacing: 2, color: ACCENT, textTransform: "uppercase", marginBottom: 8 }}>Промокод</p>
-            <p style={{ fontSize: 28, fontWeight: 900, color: "#fff", letterSpacing: 4, marginBottom: 4 }}>{promoCode}</p>
+            <p style={{ fontSize: 32, fontWeight: 900, color: "#fff", letterSpacing: 6, marginBottom: 4 }}>{promoCode}</p>
             <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>Скидка 35% · Один раз</p>
           </div>
 
           {/* Terminal photo placeholder */}
           <div style={{
-            margin: "0 auto 20px",
+            margin: "0 auto 16px",
             maxWidth: 320,
             borderRadius: 14,
             overflow: "hidden",
@@ -387,23 +405,6 @@ export function NewClientOffer() {
             <div style={{ fontSize: 32 }}>📷</div>
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", padding: "0 1rem" }}>
               Здесь будет фото терминала у мойки
-            </p>
-          </div>
-
-          {/* Save reminder */}
-          <div style={{
-            padding: "16px",
-            background: "rgba(255,200,0,0.1)",
-            border: "2px solid rgba(255,200,0,0.35)",
-            borderRadius: 14,
-            maxWidth: 320,
-            margin: "0 auto 12px",
-          }}>
-            <p style={{ fontSize: 15, fontWeight: 800, color: "rgba(255,220,80,1)", marginBottom: 6 }}>
-              📸 Сохраните промокод!
-            </p>
-            <p style={{ fontSize: 13, color: "rgba(255,220,80,0.85)", lineHeight: 1.6 }}>
-              Сделайте скриншот, сфотографируйте или запишите код — он показывается только один раз.
             </p>
           </div>
 
