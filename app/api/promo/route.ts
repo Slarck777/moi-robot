@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
 import { PROMO_CODES } from "@/content/promo-codes";
 
 const redis = new Redis({
@@ -8,6 +9,12 @@ const redis = new Redis({
 
 const LIST_KEY = "moi_robot:promo_codes";
 const USED_KEY = "moi_robot:used_phones";
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "1 m"),
+  prefix: "moi_robot:rl",
+});
 
 // Номера которые всегда могут получать промокод (тестовые / владельцы)
 const WHITELIST = new Set(["9162692556", "9670064618", "9166929243"]);
@@ -22,6 +29,12 @@ function normalizePhone(raw: string): string {
 }
 
 export async function POST(req: Request) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const { success } = await ratelimit.limit(ip);
+  if (!success) {
+    return Response.json({ error: "too_many_requests" }, { status: 429 });
+  }
+
   const { phone } = await req.json().catch(() => ({ phone: "" }));
   const normalized = normalizePhone(phone as string);
 
