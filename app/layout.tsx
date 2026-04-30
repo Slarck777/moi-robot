@@ -3,6 +3,7 @@ import { Manrope } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
+import { ConsentBanner } from "@/components/shared/ConsentBanner";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -40,6 +41,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <ConsentBanner />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
