@@ -170,7 +170,7 @@ export function NewClientOffer() {
 
               <div>
                 <p style={{ fontSize: 20, fontWeight: 900, color: "#1a1a1a", lineHeight: 1.2, marginBottom: 6 }}>
-                  Скидка на первый визит
+                  Скидка на 1-ый визит
                 </p>
                 <p style={{ fontSize: 12, color: "rgba(0,0,0,0.55)" }}>*Действует на услуги Стандарт и Оптимальная</p>
               </div>
@@ -221,7 +221,7 @@ export function NewClientOffer() {
                 <span style={{ fontSize: 15, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
               </div>
               <div>
-                <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a" }}>Скидка на первый визит</p>
+                <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a" }}>Скидка на 1-ый визит</p>
                 <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Заполните данные — получите промокод</p>
               </div>
             </div>
