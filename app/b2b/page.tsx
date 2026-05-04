@@ -44,9 +44,26 @@ const CORP_FEATURES = [
 
 const START_STEPS = [
   { num: "01", title: "Договор", desc: "Заключаем договор на обслуживание" },
-  { num: "02", title: "Баланс", desc: "Вы пополняете корпоративный счёт" },
-  { num: "03", title: "Водители", desc: "Привязываете водителей по номеру телефона" },
-  { num: "04", title: "Старт", desc: "Водители пользуются мойкой" },
+  { num: "02", title: "Личный кабинет", desc: "Создаём кабинет вашей компании" },
+  { num: "03", title: "Автопарк", desc: "Добавляем водителей по номеру телефона" },
+];
+
+const WHY_ITEMS = [
+  { num: "01", title: "Нет очереди", desc: "Ваше время не тратится зря" },
+  { num: "02", title: "Личный кабинет", desc: "Отчётность, онлайн-оплата и контроль" },
+  { num: "03", title: "Гарантия сохранности ЛКП", desc: "Бесконтактная мойка, нет риска повреждений" },
+  { num: "04", title: "Поддержка 24/7", desc: "Бесплатная техническая поддержка" },
+  { num: "05", title: "Индивидуальный подход", desc: "Условия под ваш автопарк" },
+  { num: "06", title: "Удобство 24/7", desc: "Мойте авто в любое время без ограничений" },
+];
+
+const COMPARE_ROWS = [
+  { param: "Время мойки",        manual: "25–45 мин + очередь", robot: "5–15 минут",           benefit: "Экономия до 40 минут" },
+  { param: "Время водителя",     manual: "Существенные потери", robot: "Практически ноль",      benefit: "10+ часов в месяц" },
+  { param: "Очереди",            manual: "Есть",                robot: "Нет",                   benefit: "Машины не простаивают" },
+  { param: "Качество мойки",     manual: "Зависит от человека", robot: "Стабильно высокое",     benefit: "Без «рулетки»" },
+  { param: "Мойка днища",        manual: "Часто отсутствует",   robot: "Полноценная",           benefit: "Защита от соли и реагентов" },
+  { param: "Риск повреждения ЛКП", manual: "Высокий",          robot: "Минимальный",           benefit: "Сохранность автопарка" },
 ];
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -188,8 +205,52 @@ export default function B2BPage() {
         </div>
       </section>
 
-      {/* Corporate features */}
+      {/* Comparison */}
+      <section style={{ padding: "4rem 1.5rem" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <SectionTitle>Роботизированная vs ручная мойка</SectionTitle>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+              <thead>
+                <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
+                  {["Параметр", "Ручная мойка", "МОЙ РОБОТ", "Выгода"].map((h, i) => (
+                    <th key={h} style={{ padding: "10px 12px", textAlign: "left", fontSize: 11, letterSpacing: 1, color: i === 2 ? ACCENT : "rgba(255,255,255,0.4)", textTransform: "uppercase", fontWeight: 600 }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE_ROWS.map((r, i) => (
+                  <tr key={r.param} style={{ borderBottom: `1px solid ${BORDER}`, background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}>
+                    <td style={{ padding: "14px 12px", fontWeight: 600, fontSize: 13 }}>{r.param}</td>
+                    <td style={{ padding: "14px 12px", color: "rgba(255,255,255,0.45)", fontSize: 13 }}>{r.manual}</td>
+                    <td style={{ padding: "14px 12px", color: ACCENT, fontWeight: 700, fontSize: 13 }}>{r.robot}</td>
+                    <td style={{ padding: "14px 12px", color: "rgba(255,255,255,0.6)", fontSize: 12 }}>{r.benefit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Why choose us */}
       <section style={{ background: "rgba(0,0,0,0.25)", padding: "4rem 1.5rem" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <SectionTitle>Почему компании выбирают <span style={{ color: ACCENT }}>МОЙ РОБОТ</span></SectionTitle>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
+            {WHY_ITEMS.map(w => (
+              <div key={w.num} style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 12, padding: "1.25rem" }}>
+                <p style={{ fontSize: 32, fontWeight: 900, color: "rgba(0,174,239,0.2)", letterSpacing: "-0.03em", marginBottom: 8, lineHeight: 1 }}>{w.num}</p>
+                <p style={{ fontWeight: 700, marginBottom: 6, fontSize: 14 }}>{w.title}</p>
+                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>{w.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Corporate features */}
+      <section style={{ background: "rgba(0,0,0,0.1)", padding: "4rem 1.5rem" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <SectionTitle>Всё для юридического лица</SectionTitle>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10, marginBottom: 40 }}>
@@ -205,7 +266,7 @@ export default function B2BPage() {
           </div>
 
           <p style={{ fontSize: 11, letterSpacing: 3, color: ACCENT, textTransform: "uppercase", marginBottom: 16 }}>Как начать работу</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 10 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 10 }}>
             {START_STEPS.map(s => (
               <div key={s.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                 <span style={{ width: 28, height: 28, borderRadius: "50%", background: ACCENT, color: "#0a0e1a", fontWeight: 900, fontSize: 11, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{s.num}</span>
@@ -224,9 +285,14 @@ export default function B2BPage() {
         <div style={{ maxWidth: 560, margin: "0 auto" }}>
           <p style={{ fontSize: 11, letterSpacing: 3, color: ACCENT, textTransform: "uppercase", marginBottom: 8, textAlign: "center" }}>Готовы начать?</p>
           <SectionTitle><span style={{ textAlign: "center", display: "block" }}>Оставьте заявку</span></SectionTitle>
-          <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 32, fontSize: 14, textAlign: "center" }}>
+          <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 20, fontSize: 14, textAlign: "center" }}>
             Подпишем договор и запустим вашу компанию на мойке уже сегодня.
           </p>
+          <div style={{ background: "rgba(0,174,239,0.1)", border: `1px solid rgba(0,174,239,0.35)`, borderRadius: 12, padding: "1rem 1.5rem", marginBottom: 32, textAlign: "center" }}>
+            <p style={{ fontSize: 11, letterSpacing: 2, color: ACCENT, textTransform: "uppercase", marginBottom: 6 }}>Специальное предложение</p>
+            <p style={{ fontWeight: 900, fontSize: "clamp(1.1rem, 4vw, 1.4rem)", marginBottom: 4 }}>ТЕСТ — 2 БЕСПЛАТНЫЕ МОЙКИ</p>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Попробуйте сервис без риска — при заключении договора</p>
+          </div>
           <div style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${BORDER}`, borderRadius: 16, padding: "2rem" }}>
             <B2BContactForm />
           </div>
