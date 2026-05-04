@@ -19,20 +19,20 @@ export function Hero() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-sm text-center"
       >
-        {/* Логотип */}
+        {/* Подсказка — над логотипом */}
         <div className="mb-8 pt-8">
+          <p className="text-2xl font-bold text-foreground">🚗 Оплата из машины</p>
+          <p className="mt-2 text-sm text-muted-foreground">Не нужно выходить — выберите программу<br />и оплатите прямо с телефона</p>
+        </div>
+
+        {/* Логотип */}
+        <div className="mb-8">
           <h1 className="flex justify-center">
             <Logo size="md" />
           </h1>
           <p className="mt-4 text-sm font-medium uppercase tracking-widest text-primary">
             {station.tagline}
           </p>
-        </div>
-
-        {/* Подсказка */}
-        <div className="mb-6 rounded-xl border border-primary/20 bg-primary/8 px-4 py-3">
-          <p className="text-sm font-semibold text-foreground">🚗 Оплата прямо из машины</p>
-          <p className="mt-1 text-xs text-muted-foreground">Не нужно выходить — выберите программу и оплатите через телефон</p>
         </div>
 
         {/* Инфо о станции */}
