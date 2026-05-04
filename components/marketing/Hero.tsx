@@ -12,7 +12,7 @@ export function Hero() {
   }
 
   return (
-    <section className="flex min-h-[calc(100svh-3.5rem)] flex-col items-center justify-center px-4 py-12">
+    <section className="flex flex-col items-center px-4 pt-8 pb-6">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export function Hero() {
         className="w-full max-w-sm text-center"
       >
         {/* Логотип */}
-        <div className="mb-8 pt-8">
+        <div className="mb-6">
           <h1 className="m-0 flex justify-center">
             <Logo size="md" />
           </h1>
