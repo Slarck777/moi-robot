@@ -216,6 +216,12 @@ export function PromoPage() {
                 {sending ? "Выдаём промокод..." : "Получить промокод"}
               </button>
             </form>
+
+            <div style={{ marginTop: 16, textAlign: "center" }}>
+              <Link href="/" style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", textDecoration: "none" }}>
+                ← На главную
+              </Link>
+            </div>
           </div>
         ) : (
           <div style={{
