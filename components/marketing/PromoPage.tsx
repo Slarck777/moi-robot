@@ -217,11 +217,21 @@ export function PromoPage() {
               </button>
             </form>
 
-            <div style={{ marginTop: 16, textAlign: "center" }}>
-              <Link href="/" style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", textDecoration: "none" }}>
-                ← На главную
-              </Link>
-            </div>
+            <Link href="/" style={{
+              display: "block",
+              marginTop: 14,
+              padding: "13px",
+              background: "rgba(0,0,0,0.15)",
+              border: "2px solid rgba(0,0,0,0.25)",
+              borderRadius: 12,
+              textAlign: "center",
+              fontSize: 14,
+              fontWeight: 700,
+              color: "#1a1a1a",
+              textDecoration: "none",
+            }}>
+              ← На главную
+            </Link>
           </div>
         ) : (
           <div style={{
