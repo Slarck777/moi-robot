@@ -156,26 +156,33 @@ export function NewClientOffer() {
             <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: `radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)`, pointerEvents: "none" }} />
 
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              {/* badge */}
+              {/* animated gift */}
               <div style={{
                 flexShrink: 0,
                 width: 72, height: 72,
                 borderRadius: 16,
                 background: "rgba(0,0,0,0.15)",
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                animation: "gift-bounce 1.8s ease-in-out infinite",
               }}>
-                <span style={{ fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,0.9)", letterSpacing: 0.5 }}>СКИДКА</span>
+                <span style={{ fontSize: 36 }}>🎁</span>
               </div>
 
               <div>
-                <p style={{ fontSize: 11, letterSpacing: 2, color: "rgba(0,0,0,0.55)", textTransform: "uppercase", marginBottom: 4 }}>Новым клиентам</p>
-                <p style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a", lineHeight: 1.2, marginBottom: 4 }}>
-                  Услуги Стандарт и Оптимальная
+                <p style={{ fontSize: 20, fontWeight: 900, color: "#1a1a1a", lineHeight: 1.2, marginBottom: 6 }}>
+                  Скидка на первый визит
                 </p>
-                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Только при первом визите · Один раз</p>
+                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.55)" }}>*Действует на услуги Стандарт и Оптимальная</p>
               </div>
             </div>
+
+            <style>{`
+              @keyframes gift-bounce {
+                0%, 100% { transform: translateY(0) rotate(0deg); }
+                30% { transform: translateY(-6px) rotate(-8deg); }
+                60% { transform: translateY(-3px) rotate(6deg); }
+              }
+            `}</style>
 
             <button
               onClick={() => setStep("form")}
