@@ -63,9 +63,7 @@ export function Hero() {
           />
         </motion.button>
 
-        <div className="mt-3 inline-flex items-center rounded-md bg-primary/15 border border-primary/30 px-4 py-1.5">
-          <span className="text-sm font-semibold text-primary">Выберите программу и оплатите не выходя из машины</span>
-        </div>
+        <p className="mt-3 text-sm font-semibold text-primary">Выберите программу и оплатите не выходя из машины</p>
 
         {/* B2B ссылка */}
         <div className="mt-6 border-t border-border/40 pt-6">
