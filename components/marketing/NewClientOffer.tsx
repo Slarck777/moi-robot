@@ -117,10 +117,10 @@ export function NewClientOffer() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "11px 14px",
-    background: "rgba(255,255,255,0.07)",
-    border: "1px solid rgba(255,255,255,0.15)",
+    background: "rgba(255,255,255,0.5)",
+    border: "1px solid rgba(0,0,0,0.15)",
     borderRadius: 10,
-    color: "#fff",
+    color: "#1a1a1a",
     fontSize: 15,
     outline: "none",
     boxSizing: "border-box",
@@ -131,7 +131,7 @@ export function NewClientOffer() {
     fontSize: 11,
     letterSpacing: 1,
     textTransform: "uppercase" as const,
-    color: "rgba(255,255,255,0.5)",
+    color: "rgba(0,0,0,0.5)",
     marginBottom: 5,
   };
 
@@ -213,18 +213,18 @@ export function NewClientOffer() {
       <div className="px-4 pb-6">
         <div className="mx-auto max-w-2xl">
           <div style={{
-            background: "linear-gradient(135deg, #0a2a4a 0%, #0d1f35 100%)",
-            border: `1px solid rgba(0,174,239,0.25)`,
+            background: "linear-gradient(135deg, #FFB800 0%, #FFD000 100%)",
             borderRadius: 20,
             padding: "1.75rem",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: `rgba(0,174,239,0.15)`, display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid rgba(0,174,239,0.3)` }}>
-                <span style={{ fontSize: 18, fontWeight: 900, color: ACCENT }}>35%</span>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(0,0,0,0.15)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: 15, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
+                <span style={{ fontSize: 14 }}>🎁</span>
               </div>
               <div>
-                <p style={{ fontWeight: 700, fontSize: 15, color: "#fff" }}>Скидка для новых клиентов</p>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.45)" }}>Заполните данные — получите промокод</p>
+                <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a" }}>Скидка на первый визит</p>
+                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Заполните данные — получите промокод</p>
               </div>
             </div>
 
@@ -306,7 +306,7 @@ export function NewClientOffer() {
                     borderColor: errors.plate ? "#ff6b6b" : "rgba(255,255,255,0.15)",
                   }}
                 />
-                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>Формат: А123АА77</p>
+                <p style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", marginTop: 4 }}>Формат: А123АА77</p>
                 {errors.plate && <p style={{ fontSize: 11, color: "#ff6b6b", marginTop: 2 }}>{errors.plate}</p>}
               </div>
 
@@ -316,8 +316,8 @@ export function NewClientOffer() {
                 style={{
                   marginTop: 4,
                   padding: "13px",
-                  background: sending ? "rgba(0,174,239,0.4)" : ACCENT,
-                  color: "#0a0e1a",
+                  background: sending ? "rgba(0,0,0,0.3)" : "#1a1a1a",
+                  color: "#fff",
                   fontWeight: 700,
                   fontSize: 14,
                   letterSpacing: 0.5,
