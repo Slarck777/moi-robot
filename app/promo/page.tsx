@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { PromoPage } from "@/components/marketing/PromoPage";
 
-export const metadata = {
-  title: "Скидка 35% для новых клиентов — МОЙ РОБОТ",
-  description: "Получите промокод на скидку 35% на услуги Стандарт и Оптимальная при первом визите.",
+export const metadata: Metadata = {
+  title: "МОЙ РОБОТ — скидка 35% на первый визит",
+  description: "Робот-мойка 2 поста в Мытищах, без очередей 24/7, от 300₽. Получите промокод на скидку 35% при первом визите.",
+  openGraph: {
+    title: "МОЙ РОБОТ — скидка 35% на первый визит",
+    description: "Робот-мойка 2 поста в Мытищах, без очередей 24/7, от 300₽. Получите промокод на скидку 35% при первом визите.",
+    locale: "ru_RU",
+    type: "website",
+  },
 };
 
 export default function Promo() {
