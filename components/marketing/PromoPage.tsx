@@ -263,7 +263,7 @@ export function PromoPage() {
             </div>
 
             <div style={{ borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)`, marginBottom: 16 }}>
-              <img src="/terminal-photo.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block" }} />
+              <img src="/terminal-v2.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block" }} />
             </div>
 
             <div style={{ padding: "16px 20px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 14, marginBottom: 20 }}>

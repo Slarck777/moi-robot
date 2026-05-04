@@ -392,7 +392,7 @@ export function NewClientOffer() {
 
           {/* Terminal photo */}
           <div style={{ margin: "0 auto 16px", maxWidth: 320, borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)` }}>
-            <img src="/terminal-photo.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block", borderRadius: 14 }} />
+            <img src="/terminal-v2.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block", borderRadius: 14 }} />
           </div>
 
           {/* Terminal reminder */}
