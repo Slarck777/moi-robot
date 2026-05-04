@@ -166,7 +166,6 @@ export function NewClientOffer() {
                 animation: "badge-pulse 1.8s ease-in-out infinite",
               }}>
                 <span style={{ fontSize: 26, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
-                <span style={{ fontSize: 20, lineHeight: 1 }}>🎁</span>
               </div>
 
               <div>
@@ -220,7 +219,6 @@ export function NewClientOffer() {
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
               <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(0,0,0,0.15)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ fontSize: 15, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
-                <span style={{ fontSize: 14 }}>🎁</span>
               </div>
               <div>
                 <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a" }}>Скидка на первый визит</p>
