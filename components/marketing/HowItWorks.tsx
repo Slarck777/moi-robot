@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-
 const steps = [
   {
     num: "01",
@@ -24,25 +20,16 @@ export function HowItWorks() {
   return (
     <section className="bg-card px-4 py-16">
       <div className="mx-auto max-w-2xl">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-8 text-center text-2xl font-black tracking-tight"
-        >
+        <h2 className="mb-8 text-center text-2xl font-black tracking-tight">
           Как это работает
-        </motion.h2>
+        </h2>
 
         <div className="space-y-4">
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={step.num}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="flex gap-4 rounded-2xl border border-border bg-background p-5"
+              className="flex gap-4 rounded-2xl border border-border bg-background p-5 fade-up"
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
               <span className="shrink-0 text-3xl font-black text-primary/30">
                 {step.num}
@@ -53,7 +40,7 @@ export function HowItWorks() {
                   {step.desc}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
