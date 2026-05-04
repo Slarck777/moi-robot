@@ -19,17 +19,8 @@ export function Hero() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-sm text-center"
       >
-        {/* Подсказка — над логотипом */}
-        <div className="mb-8 pt-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 border border-primary/30 px-4 py-1.5 mb-3">
-            <span className="text-sm font-semibold text-primary uppercase tracking-wide">Не выходя из машины</span>
-          </div>
-          <p className="text-2xl font-bold text-foreground">🚗 Оплата прямо<br />с телефона</p>
-          <p className="mt-2 text-sm text-muted-foreground">Выберите программу мойки и оплатите<br />не выходя из автомобиля</p>
-        </div>
-
         {/* Логотип */}
-        <div className="mb-8">
+        <div className="mb-8 pt-8">
           <h1 className="flex justify-center">
             <Logo size="md" />
           </h1>
@@ -72,9 +63,9 @@ export function Hero() {
           />
         </motion.button>
 
-        <p className="mt-3 text-xs text-muted-foreground">
-          Откроется страница оплаты Kubon
-        </p>
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary/15 border border-primary/30 px-4 py-1.5">
+          <span className="text-sm font-semibold text-primary">🚗 Выберите программу и оплатите не выходя из машины</span>
+        </div>
 
         {/* B2B ссылка */}
         <div className="mt-6 border-t border-border/40 pt-6">
