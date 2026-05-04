@@ -21,8 +21,11 @@ export function Hero() {
       >
         {/* Подсказка — над логотипом */}
         <div className="mb-8 pt-8">
-          <p className="text-2xl font-bold text-foreground">🚗 Оплата из машины</p>
-          <p className="mt-2 text-sm text-muted-foreground">Не нужно выходить — выберите программу<br />и оплатите прямо с телефона</p>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 border border-primary/30 px-4 py-1.5 mb-3">
+            <span className="text-sm font-semibold text-primary uppercase tracking-wide">Не выходя из машины</span>
+          </div>
+          <p className="text-2xl font-bold text-foreground">🚗 Оплата прямо<br />с телефона</p>
+          <p className="mt-2 text-sm text-muted-foreground">Выберите программу мойки и оплатите<br />не выходя из автомобиля</p>
         </div>
 
         {/* Логотип */}
