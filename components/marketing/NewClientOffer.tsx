@@ -156,16 +156,17 @@ export function NewClientOffer() {
             <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: `radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)`, pointerEvents: "none" }} />
 
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              {/* animated gift */}
+              {/* animated 35% badge */}
               <div style={{
                 flexShrink: 0,
                 width: 72, height: 72,
                 borderRadius: 16,
-                background: "rgba(0,0,0,0.15)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                animation: "gift-bounce 1.8s ease-in-out infinite",
+                background: "rgba(0,0,0,0.18)",
+                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                animation: "badge-pulse 1.8s ease-in-out infinite",
               }}>
-                <span style={{ fontSize: 36 }}>🎁</span>
+                <span style={{ fontSize: 26, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
+                <span style={{ fontSize: 20, lineHeight: 1 }}>🎁</span>
               </div>
 
               <div>
@@ -177,10 +178,9 @@ export function NewClientOffer() {
             </div>
 
             <style>{`
-              @keyframes gift-bounce {
-                0%, 100% { transform: translateY(0) rotate(0deg); }
-                30% { transform: translateY(-6px) rotate(-8deg); }
-                60% { transform: translateY(-3px) rotate(6deg); }
+              @keyframes badge-pulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.2); }
+                50% { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(0,0,0,0.08); }
               }
             `}</style>
 
