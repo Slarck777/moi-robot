@@ -135,7 +135,7 @@ export function PromoPage() {
 
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 28 }}>
-          <Image src="/logo-full.png" alt="МОЙ РОБОТ" width={160} height={44} style={{ objectFit: "contain" }} />
+          <Image src="/logo-full.webp" alt="МОЙ РОБОТ" width={160} height={44} style={{ objectFit: "contain" }} />
         </div>
 
         {step === "form" ? (

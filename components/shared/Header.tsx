@@ -8,7 +8,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
         <Link href="/" className="flex items-center">
-          <Image src="/logo-mp.png" alt="МОЙ РОБОТ" width={40} height={40} className="object-contain" priority />
+          <Image src="/logo-mp.webp" alt="МОЙ РОБОТ" width={40} height={40} className="object-contain" priority />
         </Link>
 
         <a

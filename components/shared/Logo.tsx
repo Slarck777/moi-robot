@@ -20,7 +20,7 @@ export function Logo({
 
   return (
     <Image
-      src="/logo-full.png"
+      src="/logo-full.webp"
       alt="МОЙ РОБОТ"
       width={s.width}
       height={s.height}
