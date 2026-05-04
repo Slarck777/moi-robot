@@ -29,6 +29,12 @@ export function Hero() {
           </p>
         </div>
 
+        {/* Подсказка */}
+        <div className="mb-6 rounded-xl border border-primary/20 bg-primary/8 px-4 py-3">
+          <p className="text-sm font-semibold text-foreground">🚗 Оплата прямо из машины</p>
+          <p className="mt-1 text-xs text-muted-foreground">Не нужно выходить — выберите программу и оплатите через телефон</p>
+        </div>
+
         {/* Инфо о станции */}
         <div className="mb-8 space-y-2 text-sm text-muted-foreground">
           <div className="flex items-center justify-center gap-2">
