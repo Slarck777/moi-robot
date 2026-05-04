@@ -390,25 +390,9 @@ export function NewClientOffer() {
             <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>Скидка 35% · Один раз</p>
           </div>
 
-          {/* Terminal photo placeholder */}
-          <div style={{
-            margin: "0 auto 16px",
-            maxWidth: 320,
-            borderRadius: 14,
-            overflow: "hidden",
-            border: `1px solid rgba(255,255,255,0.1)`,
-            background: "rgba(255,255,255,0.04)",
-            aspectRatio: "16/9",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 8,
-          }}>
-            <div style={{ fontSize: 32 }}>📷</div>
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", textAlign: "center", padding: "0 1rem" }}>
-              Здесь будет фото терминала у мойки
-            </p>
+          {/* Terminal photo */}
+          <div style={{ margin: "0 auto 16px", maxWidth: 320, borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)` }}>
+            <img src="/terminal-photo.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block", borderRadius: 14 }} />
           </div>
 
           {/* Terminal reminder */}

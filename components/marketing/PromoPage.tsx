@@ -262,12 +262,13 @@ export function PromoPage() {
               <p style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: 1 }}>Скидка 35% · Один раз</p>
             </div>
 
+            <div style={{ borderRadius: 14, overflow: "hidden", border: `1px solid rgba(255,255,255,0.1)`, marginBottom: 16 }}>
+              <img src="/terminal-photo.jpg" alt="Терминал оплаты" style={{ width: "100%", display: "block" }} />
+            </div>
+
             <div style={{ padding: "16px 20px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 14, marginBottom: 20 }}>
               <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
                 Промокод вводится <span style={{ color: ACCENT }}>только на терминале</span> у роботизированной мойки.
-              </p>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>
-                Приносим извинения за неудобства — уже работаем над этим.
               </p>
             </div>
 
