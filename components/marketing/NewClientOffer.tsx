@@ -142,8 +142,7 @@ export function NewClientOffer() {
         <div className="mx-auto max-w-2xl">
           <div
             style={{
-              background: "linear-gradient(135deg, #0a2a4a 0%, #0d1f35 60%, #091828 100%)",
-              border: `1px solid rgba(0,174,239,0.35)`,
+              background: "linear-gradient(135deg, #FFB800 0%, #FFD000 100%)",
               borderRadius: 20,
               padding: "1.25rem",
               display: "flex",
@@ -154,7 +153,7 @@ export function NewClientOffer() {
             }}
           >
             {/* glow */}
-            <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: `radial-gradient(circle, rgba(0,174,239,0.18) 0%, transparent 70%)`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", top: -40, right: -40, width: 160, height: 160, borderRadius: "50%", background: `radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)`, pointerEvents: "none" }} />
 
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               {/* badge */}
@@ -162,20 +161,19 @@ export function NewClientOffer() {
                 flexShrink: 0,
                 width: 72, height: 72,
                 borderRadius: 16,
-                background: `linear-gradient(135deg, ${ACCENT}, #0080b8)`,
+                background: "rgba(0,0,0,0.15)",
                 display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                boxShadow: `0 0 24px rgba(0,174,239,0.5)`,
               }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1 }}>35%</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,0.8)", letterSpacing: 0.5 }}>СКИДКА</span>
+                <span style={{ fontSize: 9, color: "rgba(255,255,255,0.9)", letterSpacing: 0.5 }}>СКИДКА</span>
               </div>
 
               <div>
-                <p style={{ fontSize: 11, letterSpacing: 2, color: ACCENT, textTransform: "uppercase", marginBottom: 4 }}>Новым клиентам</p>
-                <p style={{ fontSize: 17, fontWeight: 800, color: "#fff", lineHeight: 1.2, marginBottom: 4 }}>
+                <p style={{ fontSize: 11, letterSpacing: 2, color: "rgba(0,0,0,0.55)", textTransform: "uppercase", marginBottom: 4 }}>Новым клиентам</p>
+                <p style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a", lineHeight: 1.2, marginBottom: 4 }}>
                   Услуги Стандарт и Оптимальная
                 </p>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Только при первом визите · Один раз</p>
+                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Только при первом визите · Один раз</p>
               </div>
             </div>
 
@@ -184,8 +182,8 @@ export function NewClientOffer() {
               style={{
                 width: "100%",
                 padding: "12px",
-                background: ACCENT,
-                color: "#0a0e1a",
+                background: "#1a1a1a",
+                color: "#fff",
                 fontWeight: 700,
                 fontSize: 14,
                 letterSpacing: 0.5,
