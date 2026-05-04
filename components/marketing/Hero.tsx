@@ -21,10 +21,10 @@ export function Hero() {
       >
         {/* Логотип */}
         <div className="mb-8 pt-8">
-          <h1 className="flex justify-center">
+          <h1 className="m-0 flex justify-center">
             <Logo size="md" />
           </h1>
-          <p className="mt-0.5 text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="-mt-2 text-sm font-medium uppercase tracking-widest text-primary">
             {station.tagline}
           </p>
         </div>
