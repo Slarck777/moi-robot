@@ -24,7 +24,7 @@ export function Hero() {
           <h1 className="flex justify-center">
             <Logo size="md" />
           </h1>
-          <p className="mt-4 text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="mt-1.5 text-sm font-medium uppercase tracking-widest text-primary">
             {station.tagline}
           </p>
         </div>
