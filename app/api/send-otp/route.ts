@@ -20,14 +20,14 @@ export async function POST(req: Request) {
     return Response.json({ error: "invalid_phone" }, { status: 400 });
   }
 
-  // Test phones: skip SMS and rate limit, fixed code 0000
-  const TEST_PHONES = new Set(["79670064618", "79166929243"]);
+  // Test phones: skip call and rate limit, fixed code 0000
+  const TEST_PHONES = new Set(["79162692556", "79670064618", "79166929243"]);
   if (TEST_PHONES.has(normalized)) {
     await redis.set(`moi_robot:otp:${normalized}`, "0000", { ex: 300 });
     return Response.json({ ok: true });
   }
 
-  // Rate limit: max 3 OTP sends per phone per hour
+  // Rate limit: max 3 calls per phone per hour
   const rlKey = `moi_robot:otp_rl:${normalized}`;
   const attempts = await redis.incr(rlKey);
   if (attempts === 1) await redis.expire(rlKey, 3600);
@@ -35,25 +35,24 @@ export async function POST(req: Request) {
     return Response.json({ error: "too_many_attempts" }, { status: 429 });
   }
 
-  const code = String(Math.floor(1000 + Math.random() * 9000));
-  await redis.set(`moi_robot:otp:${normalized}`, code, { ex: 300 });
-
+  // Авторизация звонком — SMS.ru звонит на номер, последние 4 цифры = код
   const params = new URLSearchParams({
     api_id: process.env.SMS_RU_API_ID!,
-    to: normalized,
-    msg: `МОЙ РОБОТ: ваш код ${code}. Действует 5 минут.`,
+    phone: normalized,
     json: "1",
   });
 
-  const smsRes = await fetch(`https://sms.ru/sms/send?${params}`);
-  const smsData = await smsRes.json();
+  const callRes = await fetch(`https://sms.ru/auth/call?${params}`);
+  const callData = await callRes.json();
 
-  console.log("[send-otp] SMS.ru response:", JSON.stringify(smsData));
+  console.log("[send-otp] call response:", JSON.stringify(callData));
 
-  if (smsData.status !== "OK") {
-    console.log("[send-otp] SMS failed:", smsData.status_code);
-    return Response.json({ error: "sms_failed" }, { status: 500 });
+  if (callData.status !== "OK" || !callData.code) {
+    return Response.json({ error: "call_failed" }, { status: 500 });
   }
+
+  // Сохраняем код который вернул SMS.ru (последние 4 цифры входящего номера)
+  await redis.set(`moi_robot:otp:${normalized}`, String(callData.code), { ex: 300 });
 
   return Response.json({ ok: true });
 }
