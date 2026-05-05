@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     json: "1",
   });
 
-  const callRes = await fetch(`https://sms.ru/auth/call?${params}`);
+  const callRes = await fetch(`https://sms.ru/code/call?${params}`);
   const rawText = await callRes.text();
   console.log("[send-otp] call raw:", rawText);
 
