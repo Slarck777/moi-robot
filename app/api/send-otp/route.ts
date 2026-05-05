@@ -35,16 +35,26 @@ export async function POST(req: Request) {
   });
 
   const callRes = await fetch(`https://sms.ru/auth/call?${params}`);
-  const callData = await callRes.json();
+  const rawText = await callRes.text();
+  console.log("[send-otp] call raw:", rawText);
 
-  console.log("[send-otp] call response:", JSON.stringify(callData));
+  // SMS.ru может вернуть JSON или plain text (100\n1234\nbalance)
+  let code: string | null = null;
+  try {
+    const callData = JSON.parse(rawText);
+    if (callData.status === "OK" && callData.code) code = String(callData.code);
+  } catch {
+    // plain text: первая строка — статус (100=OK), вторая — код
+    const lines = rawText.trim().split("\n");
+    if (lines[0].trim() === "100" && lines[1]) code = lines[1].trim();
+  }
 
-  if (callData.status !== "OK" || !callData.code) {
+  if (!code) {
+    console.log("[send-otp] call failed, raw:", rawText);
     return Response.json({ error: "call_failed" }, { status: 500 });
   }
 
-  // Сохраняем код который вернул SMS.ru (последние 4 цифры входящего номера)
-  await redis.set(`moi_robot:otp:${normalized}`, String(callData.code), { ex: 300 });
+  await redis.set(`moi_robot:otp:${normalized}`, code, { ex: 300 });
 
   return Response.json({ ok: true });
 }
