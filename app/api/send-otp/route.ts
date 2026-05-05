@@ -27,14 +27,6 @@ export async function POST(req: Request) {
     return Response.json({ ok: true });
   }
 
-  // Rate limit: max 3 calls per phone per hour
-  const rlKey = `moi_robot:otp_rl:${normalized}`;
-  const attempts = await redis.incr(rlKey);
-  if (attempts === 1) await redis.expire(rlKey, 3600);
-  if (attempts > 3) {
-    return Response.json({ error: "too_many_attempts" }, { status: 429 });
-  }
-
   // Авторизация звонком — SMS.ru звонит на номер, последние 4 цифры = код
   const params = new URLSearchParams({
     api_id: process.env.SMS_RU_API_ID!,
