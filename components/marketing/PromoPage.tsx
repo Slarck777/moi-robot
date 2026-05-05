@@ -132,7 +132,7 @@ export function PromoPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, code: otp }),
       });
-      if (!res.ok) { setErrors({ otp: "Неверный код. Проверьте SMS и попробуйте снова." }); return; }
+      if (!res.ok) { setErrors({ otp: "Неверный код. Введите последние 4 цифры входящего звонка." }); return; }
       setStep("details");
     } catch {
       setErrors({ otp: "Ошибка соединения. Попробуйте ещё раз." });
