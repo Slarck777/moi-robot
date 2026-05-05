@@ -273,15 +273,12 @@ export function NewClientOffer() {
             {glow}
             {formHeader}
             <div style={{ marginBottom: 16 }}>
-              <p style={{ fontSize: 14, color: "rgba(0,0,0,0.7)", marginBottom: 4 }}>Сейчас позвоним на номер</p>
+              <p style={{ fontSize: 14, color: "rgba(0,0,0,0.7)", marginBottom: 4 }}>Отправили SMS на номер</p>
               <p style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a" }}>{phone}</p>
-              <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", marginTop: 6 }}>
-                Звонок сбросится сам — введите последние 4 цифры входящего номера
-              </p>
             </div>
             <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <label style={labelStyle}>4 цифры входящего номера *</label>
+                <label style={labelStyle}>Код из SMS *</label>
                 <input type="text" inputMode="numeric" placeholder="_ _ _ _" value={otp} maxLength={4} autoFocus
                   onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 4))}
                   style={{ ...inputStyle, fontSize: 28, fontWeight: 900, letterSpacing: 12, textAlign: "center", borderColor: errors.otp ? "#ff6b6b" : "rgba(0,0,0,0.15)" }} />

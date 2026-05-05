@@ -263,16 +263,13 @@ export function PromoPage() {
             {header}
             <div style={{ marginBottom: 16 }}>
               <p style={{ fontSize: 14, color: "rgba(0,0,0,0.7)", marginBottom: 4 }}>
-                Сейчас позвоним на номер
+                Отправили SMS на номер
               </p>
               <p style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a" }}>{phone}</p>
-              <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", marginTop: 6 }}>
-                Звонок сбросится сам — введите последние 4 цифры входящего номера
-              </p>
             </div>
             <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
-                <label style={labelStyle}>4 цифры входящего номера *</label>
+                <label style={labelStyle}>Код из SMS *</label>
                 <input
                   type="text"
                   inputMode="numeric"
