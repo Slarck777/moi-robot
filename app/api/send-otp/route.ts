@@ -48,7 +48,10 @@ export async function POST(req: Request) {
   const smsRes = await fetch(`https://sms.ru/sms/send?${params}`);
   const smsData = await smsRes.json();
 
+  console.log("[send-otp] SMS.ru response:", JSON.stringify(smsData));
+
   if (smsData.status !== "OK") {
+    console.log("[send-otp] SMS failed:", smsData.status_code);
     return Response.json({ error: "sms_failed" }, { status: 500 });
   }
 
