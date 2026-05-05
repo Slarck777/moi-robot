@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   }
 
   // Test phones: skip call and rate limit, fixed code 0000
-  const TEST_PHONES = new Set(["79162692556", "79670064618", "79166929243"]);
+  const TEST_PHONES = new Set(["79670064618", "79166929243"]);
   if (TEST_PHONES.has(normalized)) {
     await redis.set(`moi_robot:otp:${normalized}`, "0000", { ex: 300 });
     return Response.json({ ok: true });
