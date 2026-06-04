@@ -17,12 +17,11 @@ function formatPlate(raw: string): string {
   return raw.toUpperCase().slice(0, 12);
 }
 
-type Step = "banner" | "phone" | "otp" | "details" | "success";
+type Step = "banner" | "form" | "success";
 
 export function NewClientOffer() {
   const [step, setStep] = useState<Step>("banner");
   const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
   const [brandQuery, setBrandQuery] = useState("");
   const [brand, setBrand] = useState("");
   const [plate, setPlate] = useState("");
@@ -30,7 +29,6 @@ export function NewClientOffer() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [promoCode, setPromoCode] = useState("");
   const [sending, setSending] = useState(false);
-  const [resendCooldown, setResendCooldown] = useState(0);
   const brandRef = useRef<HTMLDivElement>(null);
 
   const suggestions = useMemo(() =>
@@ -49,79 +47,10 @@ export function NewClientOffer() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  useEffect(() => {
-    if (resendCooldown <= 0) return;
-    const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
-    return () => clearTimeout(t);
-  }, [resendCooldown]);
-
-  async function handleSendOtp(e: React.FormEvent) {
-    e.preventDefault();
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length < 10) { setErrors({ phone: "Введите корректный номер" }); return; }
-    setErrors({});
-    setSending(true);
-    try {
-      const res = await fetch("/api/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone }),
-      });
-      if (res.status === 429) { setErrors({ phone: "Слишком много попыток. Повторите через час." }); return; }
-      if (!res.ok) { setErrors({ phone: "Не удалось отправить SMS. Попробуйте ещё раз." }); return; }
-      setStep("otp");
-      setResendCooldown(60);
-    } catch {
-      setErrors({ phone: "Ошибка соединения. Попробуйте ещё раз." });
-    } finally {
-      setSending(false);
-    }
-  }
-
-  async function handleResend() {
-    if (resendCooldown > 0) return;
-    setSending(true);
-    try {
-      const res = await fetch("/api/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone }),
-      });
-      if (res.status === 429) { setErrors({ otp: "Слишком много попыток. Повторите через час." }); return; }
-      if (!res.ok) { setErrors({ otp: "Не удалось отправить SMS." }); return; }
-      setOtp("");
-      setErrors({});
-      setResendCooldown(60);
-    } catch {
-      setErrors({ otp: "Ошибка соединения." });
-    } finally {
-      setSending(false);
-    }
-  }
-
-  async function handleVerifyOtp(e: React.FormEvent) {
-    e.preventDefault();
-    if (otp.replace(/\D/g, "").length !== 4) { setErrors({ otp: "Введите 4-значный код из SMS" }); return; }
-    setErrors({});
-    setSending(true);
-    try {
-      const res = await fetch("/api/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone, code: otp }),
-      });
-      if (!res.ok) { setErrors({ otp: "Неверный код. Введите последние 4 цифры входящего звонка." }); return; }
-      setStep("details");
-    } catch {
-      setErrors({ otp: "Ошибка соединения. Попробуйте ещё раз." });
-    } finally {
-      setSending(false);
-    }
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs: Record<string, string> = {};
+    if (phone.replace(/\D/g, "").length < 10) errs.phone = "Введите корректный номер";
     if (!brand.trim()) errs.brand = "Введите марку автомобиля";
     if (plate.trim().length < 2) errs.plate = "Введите гос. номер";
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
@@ -131,11 +60,11 @@ export function NewClientOffer() {
       const res = await fetch("/api/promo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone }),
+        body: JSON.stringify({ phone, brand, plate }),
       });
       const data = await res.json();
-      if (res.status === 409) { setErrors({ general: "Этот номер уже получал промокод." }); return; }
-      if (!res.ok || !data.code) { setErrors({ general: "Коды временно закончились. Позвоните нам." }); return; }
+      if (res.status === 409) { setErrors({ submit: "Промокод уже был получен с этого устройства." }); return; }
+      if (!res.ok || !data.code) { setErrors({ submit: "Коды временно закончились. Позвоните нам." }); return; }
       setPromoCode(data.code);
       await fetch(process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!, {
         method: "POST",
@@ -153,7 +82,7 @@ export function NewClientOffer() {
       }).catch(() => {});
       setStep("success");
     } catch {
-      setErrors({ general: "Ошибка соединения. Попробуйте ещё раз." });
+      setErrors({ submit: "Ошибка соединения. Попробуйте ещё раз." });
     } finally {
       setSending(false);
     }
@@ -199,7 +128,7 @@ export function NewClientOffer() {
       </div>
       <div>
         <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1a1a" }}>Скидка на 1-ый визит</p>
-        <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Подтвердите номер — получите промокод</p>
+        <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>Заполните данные — получите промокод</p>
       </div>
     </div>
   );
@@ -226,7 +155,7 @@ export function NewClientOffer() {
                 50% { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(0,0,0,0.08); }
               }
             `}</style>
-            <button onClick={() => setStep("phone")} style={{ width: "100%", padding: "12px", background: "#1a1a1a", color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: 0.5, border: "none", borderRadius: 12, cursor: "pointer" }}>
+            <button onClick={() => setStep("form")} style={{ width: "100%", padding: "12px", background: "#1a1a1a", color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: 0.5, border: "none", borderRadius: 12, cursor: "pointer" }}>
               Получить скидку →
             </button>
           </div>
@@ -235,15 +164,15 @@ export function NewClientOffer() {
     );
   }
 
-  // ─── PHONE ─────────────────────────────────────────────────
-  if (step === "phone") {
+  // ─── FORM ──────────────────────────────────────────────────
+  if (step === "form") {
     return (
       <div className="px-4 pb-6">
         <div className="mx-auto max-w-2xl">
           <div style={cardStyle}>
             {glow}
             {formHeader}
-            <form onSubmit={handleSendOtp} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
                 <label style={labelStyle}>Номер телефона *</label>
                 <input type="tel" placeholder="+7 (___) ___-__-__" value={phone}
@@ -251,72 +180,6 @@ export function NewClientOffer() {
                   style={{ ...inputStyle, borderColor: errors.phone ? "#ff6b6b" : "rgba(0,0,0,0.15)" }} />
                 {errors.phone && <p style={{ fontSize: 11, color: "#c00", marginTop: 4 }}>{errors.phone}</p>}
               </div>
-              <button type="submit" disabled={sending} style={{ padding: "13px", background: sending ? "rgba(0,0,0,0.3)" : "#1a1a1a", color: "#fff", fontWeight: 700, fontSize: 14, border: "none", borderRadius: 12, cursor: sending ? "not-allowed" : "pointer" }}>
-                {sending ? "Отправляем..." : "Получить код →"}
-              </button>
-              <button type="button" onClick={() => setStep("banner")} style={{ background: "none", border: "none", color: "rgba(0,0,0,0.45)", fontSize: 13, cursor: "pointer" }}>
-                ← Назад
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ─── OTP ───────────────────────────────────────────────────
-  if (step === "otp") {
-    return (
-      <div className="px-4 pb-6">
-        <div className="mx-auto max-w-2xl">
-          <div style={cardStyle}>
-            {glow}
-            {formHeader}
-            <div style={{ marginBottom: 16 }}>
-              <p style={{ fontSize: 14, color: "rgba(0,0,0,0.7)", marginBottom: 4 }}>Отправили SMS на номер</p>
-              <p style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a" }}>{phone}</p>
-            </div>
-            <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              <div>
-                <label style={labelStyle}>Код из SMS *</label>
-                <input type="text" inputMode="numeric" placeholder="_ _ _ _" value={otp} maxLength={4} autoFocus
-                  onChange={e => setOtp(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                  style={{ ...inputStyle, fontSize: 28, fontWeight: 900, letterSpacing: 12, textAlign: "center", borderColor: errors.otp ? "#ff6b6b" : "rgba(0,0,0,0.15)" }} />
-                {errors.otp && <p style={{ fontSize: 11, color: "#c00", marginTop: 4 }}>{errors.otp}</p>}
-              </div>
-              <button type="submit" disabled={sending} style={{ padding: "13px", background: sending ? "rgba(0,0,0,0.3)" : "#1a1a1a", color: "#fff", fontWeight: 700, fontSize: 14, border: "none", borderRadius: 12, cursor: sending ? "not-allowed" : "pointer" }}>
-                {sending ? "Проверяем..." : "Подтвердить →"}
-              </button>
-            </form>
-            <div style={{ marginTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <button onClick={() => { setStep("phone"); setOtp(""); setErrors({}); }}
-                style={{ background: "none", border: "none", fontSize: 13, color: "rgba(0,0,0,0.55)", cursor: "pointer", padding: 0 }}>
-                ← Изменить номер
-              </button>
-              <button onClick={handleResend} disabled={resendCooldown > 0 || sending}
-                style={{ background: "none", border: "none", fontSize: 13, color: resendCooldown > 0 ? "rgba(0,0,0,0.35)" : "#1a1a1a", cursor: resendCooldown > 0 ? "default" : "pointer", fontWeight: 600, padding: 0 }}>
-                {resendCooldown > 0 ? `Повторно через ${resendCooldown}с` : "Отправить повторно"}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ─── DETAILS ───────────────────────────────────────────────
-  if (step === "details") {
-    return (
-      <div className="px-4 pb-6">
-        <div className="mx-auto max-w-2xl">
-          <div style={cardStyle}>
-            {glow}
-            {formHeader}
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16, padding: "8px 12px", background: "rgba(0,0,0,0.1)", borderRadius: 10 }}>
-              <span style={{ fontSize: 16 }}>✓</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "#1a1a1a" }}>Номер подтверждён: {phone}</span>
-            </div>
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div ref={brandRef} style={{ position: "relative" }}>
                 <label style={labelStyle}>Марка автомобиля *</label>
                 <input type="text" placeholder="Toyota, Kia, BMW..." value={brandQuery} autoComplete="off"
@@ -345,9 +208,12 @@ export function NewClientOffer() {
                 <p style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", marginTop: 4 }}>Формат: А123АА77</p>
                 {errors.plate && <p style={{ fontSize: 11, color: "#c00", marginTop: 2 }}>{errors.plate}</p>}
               </div>
-              {errors.general && <p style={{ fontSize: 12, color: "#c00", textAlign: "center" }}>{errors.general}</p>}
+              {errors.submit && <p style={{ fontSize: 12, color: "#c00", textAlign: "center" }}>{errors.submit}</p>}
               <button type="submit" disabled={sending} style={{ marginTop: 4, padding: "13px", background: sending ? "rgba(0,0,0,0.3)" : "#1a1a1a", color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: 0.5, border: "none", borderRadius: 12, cursor: sending ? "not-allowed" : "pointer" }}>
                 {sending ? "Выдаём промокод..." : "Получить промокод"}
+              </button>
+              <button type="button" onClick={() => setStep("banner")} style={{ background: "none", border: "none", color: "rgba(0,0,0,0.45)", fontSize: 13, cursor: "pointer" }}>
+                ← Назад
               </button>
             </form>
           </div>
