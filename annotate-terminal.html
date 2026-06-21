@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Аннотация терминала</title>
+<style>
+  body { margin: 0; background: #1a1a1a; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 24px; gap: 16px; }
+  h2 { margin: 0; font-size: 20px; }
+  label { cursor: pointer; background: #00AEEF; color: #000; font-weight: 700; padding: 12px 28px; border-radius: 10px; font-size: 15px; }
+  input[type=file] { display: none; }
+  canvas { max-width: 100%; border-radius: 12px; display: none; }
+  button { background: #22c55e; color: #fff; font-weight: 700; padding: 12px 28px; border: none; border-radius: 10px; font-size: 15px; cursor: pointer; display: none; }
+  p { color: rgba(255,255,255,0.5); font-size: 14px; margin: 0; }
+</style>
+</head>
+<body>
+<h2>Выделение терминала на фото</h2>
+<p>Загрузи фото — получишь готовую аннотацию со стрелкой и подписью</p>
+
+<label>📂 Выбрать фото терминала
+  <input type="file" id="fileInput" accept="image/*">
+</label>
+
+<canvas id="canvas"></canvas>
+<button id="downloadBtn">⬇ Скачать аннотированное фото</button>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const downloadBtn = document.getElementById('downloadBtn');
+
+fileInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      annotate(img.width, img.height);
+      canvas.style.display = 'block';
+      downloadBtn.style.display = 'block';
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function annotate(W, H) {
+  // Терминал находится примерно в левой 22% ширины, от 25% до 90% высоты
+  const termX = W * 0.02;
+  const termY = H * 0.24;
+  const termW = W * 0.22;
+  const termH = H * 0.67;
+
+  const cx = termX + termW / 2; // центр терминала по X
+  const cy = termY + termH / 2; // центр терминала по Y
+
+  // ── Полупрозрачное затемнение остального изображения
+  ctx.save();
+  ctx.fillStyle = 'rgba(0,0,0,0.45)';
+  ctx.fillRect(0, 0, W, H);
+  // Вырезаем зону терминала (делаем её светлее)
+  ctx.clearRect(termX - 20, termY - 20, termW + 40, termH + 40);
+  ctx.drawImage(canvas, termX - 20, termY - 20, termW + 40, termH + 40, termX - 20, termY - 20, termW + 40, termH + 40);
+  ctx.restore();
+
+  // ── Яркая рамка вокруг терминала
+  const pad = 18;
+  const rx = termX - pad;
+  const ry = termY - pad;
+  const rw = termW + pad * 2;
+  const rh = termH + pad * 2;
+  const r = 24;
+
+  ctx.save();
+  ctx.strokeStyle = '#FFD000';
+  ctx.lineWidth = W * 0.008;
+  ctx.shadowColor = '#FFD000';
+  ctx.shadowBlur = 30;
+  ctx.beginPath();
+  ctx.moveTo(rx + r, ry);
+  ctx.lineTo(rx + rw - r, ry);
+  ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + r);
+  ctx.lineTo(rx + rw, ry + rh - r);
+  ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - r, ry + rh);
+  ctx.lineTo(rx + r, ry + rh);
+  ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - r);
+  ctx.lineTo(rx, ry + r);
+  ctx.quadraticCurveTo(rx, ry, rx + r, ry);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.restore();
+
+  // ── Стрелка снизу от рамки вниз
+  const arrowX = cx;
+  const arrowStartY = ry + rh + W * 0.01;
+  const arrowEndY = arrowStartY + H * 0.07;
+
+  ctx.save();
+  ctx.strokeStyle = '#FFD000';
+  ctx.lineWidth = W * 0.009;
+  ctx.lineCap = 'round';
+  ctx.shadowColor = '#FFD000';
+  ctx.shadowBlur = 20;
+  ctx.beginPath();
+  ctx.moveTo(arrowX, arrowStartY);
+  ctx.lineTo(arrowX, arrowEndY);
+  ctx.stroke();
+
+  // Наконечник стрелки
+  const aw = W * 0.04;
+  ctx.beginPath();
+  ctx.moveTo(arrowX - aw, arrowEndY - aw * 0.7);
+  ctx.lineTo(arrowX, arrowEndY + 2);
+  ctx.lineTo(arrowX + aw, arrowEndY - aw * 0.7);
+  ctx.stroke();
+  ctx.restore();
+
+  // ── Подпись
+  const labelY = arrowEndY + H * 0.04;
+  const fontSize = Math.round(W * 0.042);
+  const padding = fontSize * 0.55;
+  const text = 'ТЕРМИНАЛ ОПЛАТЫ';
+
+  ctx.save();
+  ctx.font = `900 ${fontSize}px sans-serif`;
+  const textW = ctx.measureText(text).width;
+
+  // Фон подписи
+  ctx.fillStyle = '#FFD000';
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 16;
+  roundRect(ctx, cx - textW / 2 - padding, labelY - fontSize - padding * 0.4, textW + padding * 2, fontSize + padding * 1.4, 14);
+  ctx.fill();
+
+  // Текст
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#1a1a1a';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, cx, labelY - fontSize * 0.1);
+  ctx.restore();
+
+  // ── Номер «1» в углу рамки
+  const dotR = W * 0.032;
+  const dotX = rx + rw - dotR * 0.3;
+  const dotY = ry - dotR * 0.3;
+  ctx.save();
+  ctx.fillStyle = '#FF3B30';
+  ctx.shadowColor = '#FF3B30';
+  ctx.shadowBlur = 16;
+  ctx.beginPath();
+  ctx.arc(dotX, dotY, dotR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.shadowBlur = 0;
+  ctx.font = `900 ${Math.round(dotR * 1.3)}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('1', dotX, dotY);
+  ctx.restore();
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+downloadBtn.addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.download = 'terminal-annotated.jpg';
+  a.href = canvas.toDataURL('image/jpeg', 0.93);
+  a.click();
+});
+</script>
+</body>
+</html>

@@ -1,24 +1,12 @@
-"use client";
-
 import Link from "next/link";
 import { MapPin, Clock, CreditCard, ArrowRight, Building2 } from "lucide-react";
-import { motion } from "motion/react";
 import { station } from "@/lib/station";
 import { Logo } from "@/components/shared/Logo";
 
 export function Hero() {
-  function handleStart() {
-    window.location.href = station.kubonUrl;
-  }
-
   return (
     <section className="flex flex-col items-center px-4 pt-8 pb-6">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-sm text-center"
-      >
+      <div className="fade-up w-full max-w-sm text-center">
         {/* Логотип */}
         <div className="mb-6">
           <h1 className="m-0 flex justify-center">
@@ -46,24 +34,17 @@ export function Hero() {
         </div>
 
         {/* Главная кнопка */}
-        <motion.button
-          onClick={handleStart}
-          whileTap={{ scale: 0.97 }}
-          className="group relative w-full overflow-hidden rounded-2xl bg-primary px-8 py-5 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow hover:shadow-primary/40"
+        <a
+          href={station.kubonUrl}
+          className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl bg-primary px-8 py-5 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:shadow-primary/40 active:scale-[0.97]"
         >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Начать мойку
-            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-          </span>
-          <motion.div
-            className="absolute inset-0 bg-white/10"
-            initial={{ x: "-100%" }}
-            whileHover={{ x: "100%" }}
-            transition={{ duration: 0.4 }}
-          />
-        </motion.button>
+          Начать мойку
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </a>
 
-        <p className="mt-3 text-sm font-semibold text-primary">Выберите программу и оплатите не выходя из машины</p>
+        <p className="mt-3 text-sm font-semibold text-primary">
+          Выберите программу и оплатите не выходя из машины
+        </p>
 
         {/* B2B ссылка */}
         <div className="mt-6 border-t border-border/40 pt-6">
@@ -81,7 +62,7 @@ export function Hero() {
             <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

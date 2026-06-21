@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { station } from "@/lib/station";
+
+export const metadata: Metadata = {
+  title: "Корпоративная мойка для автопарков — МОЙ РОБОТ, Мытищи",
+  description: "Роботизированная мойка для корпоративных клиентов в Мытищах. Личный кабинет, контроль расходов, договор, 24/7. 2 бесплатные мойки при заключении договора.",
+  openGraph: {
+    title: "Корпоративная мойка для автопарков — МОЙ РОБОТ",
+    description: "Роботизированная бесконтактная мойка для автопарков в Мытищах. Договор, личный кабинет, 24/7.",
+    locale: "ru_RU",
+    type: "website",
+  },
+  alternates: { canonical: "https://moi-robot.ru/b2b" },
+};
 import { B2BContactForm } from "./B2BContactForm";
 
 const ACCENT = "#00AEEF";
