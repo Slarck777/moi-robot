@@ -146,7 +146,7 @@ export function NewClientOffer() {
               </div>
               <div>
                 <p style={{ fontSize: 20, fontWeight: 900, color: "#1a1a1a", lineHeight: 1.2, marginBottom: 6 }}>Скидка на 1-ый визит</p>
-                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.55)" }}>*Действует на услуги Стандарт и Оптимальная</p>
+                <p style={{ fontSize: 12, color: "rgba(0,0,0,0.55)" }}>*Действует на услуги Стандарт и Премиум</p>
               </div>
             </div>
             <style>{`
@@ -230,7 +230,7 @@ export function NewClientOffer() {
           <div style={{ fontSize: 36, marginBottom: 8 }}>🎉</div>
           <p style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4 }}>Спасибо за регистрацию!</p>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>
-            Ваш промокод на скидку 35% (Оптимальная / Стандарт)
+            Ваш промокод на скидку 35% (Стандарт / Премиум)
           </p>
           <div style={{ padding: "18px 20px", background: "rgba(255,200,0,0.15)", border: "2px solid rgba(255,210,0,0.6)", borderRadius: 16, maxWidth: 320, margin: "0 auto 16px", boxShadow: "0 0 20px rgba(255,200,0,0.2)" }}>
             <p style={{ fontSize: 18, fontWeight: 900, color: "#FFD700", marginBottom: 8 }}>📸 Сохраните промокод!</p>

@@ -176,31 +176,31 @@ export default function B2BPage() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${BORDER}` }}>
-                  {["Услуга", "Цена", "Время", "Сушка", "Воск"].map(h => (
+                  {["Услуга", "Цена", "Ночью", "Время", "Днище", "Воск"].map(h => (
                     <th key={h} style={{ padding: "10px 12px", textAlign: "left", fontSize: 11, letterSpacing: 1, color: "rgba(255,255,255,0.4)", textTransform: "uppercase", fontWeight: 600 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { name: "Техническая", price: "400 ₽", time: "5 мин", dry: false, wax: false },
-                  { name: "Экспресс",     price: "600 ₽", time: "8 мин", dry: false, wax: false },
-                  { name: "Оптимальная",  price: "850 ₽", time: "12 мин", dry: true,  wax: false },
-                  { name: "Стандарт",     price: "1 050 ₽", time: "15 мин", dry: true,  wax: true },
-                ].map((r, i) => (
-                  <tr key={r.name} style={{ borderBottom: `1px solid ${BORDER}`, background: i === 3 ? "rgba(0,174,239,0.06)" : "transparent" }}>
-                    <td style={{ padding: "14px 12px", fontWeight: i === 3 ? 700 : 400 }}>{r.name}</td>
-                    <td style={{ padding: "14px 12px", color: i === 3 ? ACCENT : "#fff", fontWeight: 700 }}>{r.price}</td>
-                    <td style={{ padding: "14px 12px", color: "rgba(255,255,255,0.6)" }}>{r.time}</td>
-                    <td style={{ padding: "14px 12px" }}>{r.dry ? <span style={{ color: ACCENT }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>}</td>
-                    <td style={{ padding: "14px 12px" }}>{r.wax ? <span style={{ color: ACCENT }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>}</td>
+                {/* Данные берём из station.json, чтобы таблица не разъезжалась с главной */}
+                {[...station.programs].reverse().map(p => {
+                  const has = (word: string) => p.steps.some(s => s.toLowerCase().includes(word));
+                  return (
+                  <tr key={p.id} style={{ borderBottom: `1px solid ${BORDER}`, background: p.popular ? "rgba(0,174,239,0.06)" : "transparent" }}>
+                    <td style={{ padding: "14px 12px", fontWeight: p.popular ? 700 : 400 }}>{p.name}</td>
+                    <td style={{ padding: "14px 12px", color: p.popular ? ACCENT : "#fff", fontWeight: 700 }}>{p.price.toLocaleString("ru-RU")} ₽</td>
+                    <td style={{ padding: "14px 12px", color: "rgba(255,255,255,0.6)" }}>{p.nightPrice.toLocaleString("ru-RU")} ₽</td>
+                    <td style={{ padding: "14px 12px", color: "rgba(255,255,255,0.6)" }}>{p.duration} мин</td>
+                    <td style={{ padding: "14px 12px" }}>{has("днища") ? <span style={{ color: ACCENT }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>}</td>
+                    <td style={{ padding: "14px 12px" }}>{has("воск") ? <span style={{ color: ACCENT }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.25)" }}>—</span>}</td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
           <p style={{ marginTop: 12, fontSize: 12, color: "rgba(255,255,255,0.4)", fontStyle: "italic" }}>
-            * Для юридических лиц цены согласовываются индивидуально при заключении договора
+            * Ночной тариф действует {station.nightHours}. Для юридических лиц цены согласовываются индивидуально при заключении договора
           </p>
         </div>
       </section>

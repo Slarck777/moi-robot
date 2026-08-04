@@ -1,13 +1,14 @@
 import { Clock, Star } from "lucide-react";
 import { station } from "@/lib/station";
 
-const MAX_LEVEL = 4;
+const MAX_LEVEL = 5;
 
 const levelLabel: Record<number, string> = {
   1: "Базовая",
-  2: "Средняя",
-  3: "Глубокая",
-  4: "Максимальная",
+  2: "Лёгкая",
+  3: "Средняя",
+  4: "Улучшенная",
+  5: "Максимальная",
 };
 
 function CleanMeter({ level }: { level: number }) {
@@ -37,9 +38,12 @@ export function Programs() {
   return (
     <section className="px-4 py-16">
       <div className="mx-auto max-w-2xl">
-        <h2 className="mb-8 text-center text-2xl font-black tracking-tight">
+        <h2 className="mb-2 text-center text-2xl font-black tracking-tight">
           Программы мойки
         </h2>
+        <p className="mb-8 text-center text-xs text-muted-foreground">
+          Ночной тариф действует {station.nightHours}
+        </p>
 
         <div className="grid gap-3">
           {station.programs.map((program, i) => (
@@ -62,20 +66,39 @@ export function Programs() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="font-bold">{program.name}</h3>
-                  <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <Clock className="h-3.5 w-3.5" />
-                    <span>~{program.duration} мин</span>
+                  <p className="text-xs font-medium uppercase tracking-wide text-primary/80">
+                    {program.subtitle}
+                  </p>
+
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="h-3.5 w-3.5" />~{program.duration} мин
+                    </span>
+                    <span className="rounded-full bg-primary/10 px-2 py-0.5 font-semibold text-primary">
+                      +{program.bonus} бонусов
+                    </span>
                   </div>
+
                   <CleanMeter level={program.cleanLevel} />
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+
+                  <p className="mt-2 text-xs leading-relaxed text-foreground/75">
+                    {program.description}
+                  </p>
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
                     {program.steps.join(" · ")}
                   </p>
                 </div>
+
                 <div className="shrink-0 text-right">
-                  <span className="text-2xl font-black text-primary">
-                    {program.price.toLocaleString("ru-RU")}
-                  </span>
-                  <span className="text-sm text-muted-foreground"> ₽</span>
+                  <div>
+                    <span className="text-2xl font-black text-primary">
+                      {program.price.toLocaleString("ru-RU")}
+                    </span>
+                    <span className="text-sm text-muted-foreground"> ₽</span>
+                  </div>
+                  <p className="mt-0.5 whitespace-nowrap text-xs text-muted-foreground">
+                    ночью {program.nightPrice.toLocaleString("ru-RU")} ₽
+                  </p>
                 </div>
               </div>
             </div>
