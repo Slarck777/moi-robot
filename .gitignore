@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+# проект на pnpm: чужие lock-файлы дают другое дерево зависимостей
+package-lock.json
+yarn.lock
 /.pnp
 .pnp.*
 .yarn/*
